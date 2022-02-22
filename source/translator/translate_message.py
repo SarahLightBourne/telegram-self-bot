@@ -14,13 +14,15 @@ async def translate_message(message: Message) -> None:
   if not to_translate:
     return
 
+  language = await translator.detect(message_text)
+
   if message_text.startswith('/'):
     message_text, annotations = message_text[1:], True
   else:
     annotations = False
 
   translated_parts = await asyncio.gather(*[
-    translator.translate(part, 'en', 'ja')
+    translator.translate(part, language, 'ja')
   for part in to_translate])
 
   data = list(zip(to_translate, translated_parts))
