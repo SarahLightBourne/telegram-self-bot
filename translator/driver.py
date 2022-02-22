@@ -25,7 +25,7 @@ class Driver:
     self.task = asyncio.create_task(self.pending())
 
   async def pending(self) -> None:
-    aioschedule.every(15).minutes.do(self.get_params)
+    aioschedule.every(1).hour.do(self.get_params)
 
     while True:
       await asyncio.sleep(1)
@@ -38,7 +38,7 @@ class Driver:
   @sync_to_async
   def _get_params(self, proxy: str) -> Dict:
     options = Options()
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
 
     driver = webdriver.Chrome(self.path, seleniumwire_options=self.get_options(proxy), options=options)
     driver.get('https://translate.yandex.com')
