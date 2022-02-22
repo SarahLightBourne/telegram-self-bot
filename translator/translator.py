@@ -46,7 +46,7 @@ class Translator:
     }
 
     response = await self.requests_session.post(self.TRANSLATE_URL, params=params, data=payload, headers=Headers().generate())
-    print(response.text)
+    return response.json()['text']
 
   async def close(self) -> None:
     if self.requests_session:
