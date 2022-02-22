@@ -14,11 +14,26 @@ async def translate_message(message: Message) -> None:
   if not to_translate:
     return
 
+  if message_text.startswith('/'):
+    message_text, annotations = message_text[1:], True
+  else:
+    annotations = False
+
   translated_parts = await asyncio.gather(*[
     translator.translate(part, 'en', 'ja')
   for part in to_translate])
 
-  for before, after in zip(to_translate, translated_parts):
+  data = list(zip(to_translate, translated_parts))
+
+  for before, after in data:
     message_text = message_text.replace(f'[{before}]', after)
+
+  if annotations:
+
+    if len(to_translate) == 1:
+      message_text = f'{message_text}\n\n\n{before}'
+    else:
+      words = '\n'.join(f'{after} {before}' for before, after in data)
+      message_text = f'{message_text}\n\n{words}'
 
   await message.edit(message_text)
