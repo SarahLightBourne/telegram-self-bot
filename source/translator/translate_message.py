@@ -31,9 +31,9 @@ async def translate_message(message: Message) -> None:
   if annotations:
 
     if len(to_translate) == 1:
-      message_text = f'{message_text}\n\n\n{before}'
+      message_text = f'{message_text}\n\n\n<code>{before}</code>'
     else:
-      words = '\n'.join(f'{after} {before}' for before, after in data)
+      words = '\n'.join(f'<code>{after}</code> <b>{before}</b>' for before, after in data)
       message_text = f'{message_text}\n\n{words}'
 
-  await message.edit(message_text)
+  await message.edit(message_text, parse_mode='HTML')
