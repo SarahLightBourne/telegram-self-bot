@@ -46,7 +46,11 @@ class Translator:
     }
 
     response = await self.requests_session.post(self.TRANSLATE_URL, params=params, data=payload, headers=Headers().generate())
-    return response.json()['text'][0]
+
+    try:
+      return response.json()['text'][0]
+    except Exception as error:
+      return str(error)
 
   async def close(self) -> None:
     if self.requests_session:
