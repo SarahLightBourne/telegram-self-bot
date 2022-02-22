@@ -1,3 +1,4 @@
+from . import translator as _
 from .settings import telegram_clinet, translator
 
 
