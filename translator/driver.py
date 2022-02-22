@@ -65,4 +65,5 @@ class Driver:
     }
 
   def close(self) -> None:
-    self.task.cancel()
+    if self.task:
+      self.task.cancel()
