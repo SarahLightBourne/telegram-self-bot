@@ -1,1 +1,3 @@
-TARGET_LANGUAGE = 'ja'
+CONFIG = {
+  'target': 'ja'
+}

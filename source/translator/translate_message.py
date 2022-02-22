@@ -1,3 +1,4 @@
+from .config import CONFIG
 from ..settings import translator
 from telethon.tl.patched import Message
 
@@ -22,7 +23,7 @@ async def translate_message(message: Message) -> None:
     annotations = False
 
   translated_parts = await asyncio.gather(*[
-    translator.translate(part, language, 'ja')
+    translator.translate(part, language, CONFIG['target'])
   for part in to_translate])
 
   data = list(zip(to_translate, translated_parts))
