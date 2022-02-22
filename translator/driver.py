@@ -8,6 +8,7 @@ from utils import sync_to_async
 import time
 from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 from typing import Dict
 from pathlib import Path
@@ -36,7 +37,10 @@ class Driver:
 
   @sync_to_async
   def _get_params(self, proxy: str) -> Dict:
-    driver = webdriver.Chrome(self.path, seleniumwire_options=self.get_options(proxy))
+    options = Options()
+    options.add_argument('--headless')
+
+    driver = webdriver.Chrome(self.path, seleniumwire_options=self.get_options(proxy), options=options)
     driver.get('https://translate.yandex.com')
     time.sleep(2)
 
