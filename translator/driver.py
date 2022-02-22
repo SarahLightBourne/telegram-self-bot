@@ -38,9 +38,16 @@ class Driver:
   def _get_params(self, proxy: str) -> Dict:
     driver = webdriver.Chrome(self.path, seleniumwire_options=self.get_options(proxy))
     driver.get('https://translate.yandex.com')
+    time.sleep(2)
 
     text_input = driver.find_element(By.ID, 'fakeArea')
-    text_input.send_keys('Hello')
+
+    try:
+      text_input.send_keys('Hello')
+    except:
+      time.sleep(5)
+      text_input = driver.find_element(By.ID, 'fakeArea')
+      text_input.send_keys('Hello')
 
     while driver.find_element(By.ID, 'translation').text == '':
       time.sleep(0.5)

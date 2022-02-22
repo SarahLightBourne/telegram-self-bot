@@ -1,3 +1,3 @@
-from .driver import Driver
+from .translator import Translator
 
-__ALL__ = ('Driver',)
+__ALL__ = ('Translator',)
