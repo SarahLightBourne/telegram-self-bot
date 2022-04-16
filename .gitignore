@@ -155,3 +155,4 @@ config.env
 chromedriver
 *.session
 *.session-journal
+.DS_Store
